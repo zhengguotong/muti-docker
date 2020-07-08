@@ -1,0 +1,19 @@
+language: generic 
+sudo: required 
+services:
+    - docker
+
+before_install:
+    - docker built -t visionsoftau/react-test -f ./client/Dockerfile.dev .
+
+script:
+    - docker run -e CI=true visionsoftau/react-test npm test -- --coverage
+
+after_success:
+    - docker build -t visionsoftau/multi-client ./client/
+    - docker build -t visionsoftau/multi-nginx ./nginx/
+    - docker build -t visionsoftau/multi-server ./server/
+    - docker build -t visionsoftau/multi-worker ./worker/
+    #Log in to the docker CLI
+
+    #Take those images and push them to docker hub
