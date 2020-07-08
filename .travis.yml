@@ -4,7 +4,7 @@ services:
     - docker
 
 before_install:
-    - docker built -t visionsoftau/react_test -f ./client/Dockerfile.dev ./client
+    - docker build -t visionsoftau/react_test -f ./client/Dockerfile.dev ./client
 
 script:
     - docker run -e CI=true visionsoftau/react_test npm test -- --coverage
