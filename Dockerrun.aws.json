@@ -1,0 +1,38 @@
+{
+    "AWSEBDocerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "visionsoftau/multi-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "server",
+            "image": "visionsoftau/multi-server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "visionsoftau/multi-worker",
+            "hostname": "worker",
+            "essential": false
+        },
+        {
+            "name": "nginx",
+            "image": "visionsoftau/multi-nginx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": [
+                "client","server"
+            ]
+        }
+    ]
+}
